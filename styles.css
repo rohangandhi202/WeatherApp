@@ -25,6 +25,7 @@ body, h1, h2, h3, p, ul, li, form {
   /* Styling for the Current Weather section */
   .current-weather {
     margin-bottom: 2rem;
+    text-align: center;
   }
   
   .weather-info {
@@ -32,24 +33,27 @@ body, h1, h2, h3, p, ul, li, form {
   }
   
   .location {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
+    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
   
   .temperature {
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
+    margin-bottom: 0.5rem;
   }
   
   .description {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-style: italic;
   }
   
   /* Styling for the Forecast section */
   .forecast {
     margin-bottom: 2rem;
+    text-align: center;
   }
   
   .forecast-list {

@@ -6,26 +6,40 @@ const forecastListElement = document.querySelector('.forecast-list');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
-// Sample weather data for testing (replace this with actual data from the API)
-const sampleWeatherData = {
-  location: 'Chicago, USA',
-  temperature: '85°F',
-  description: 'Sunny',
-  forecast: [
-    { date: '2023-07-31', temperature: '88°F', description: 'Partly Cloudy' },
-    { date: '2023-08-01', temperature: '94°F', description: 'Sunny' },
-    { date: '2023-08-02', temperature: '85°F', description: 'Cloudy' },
-    { date: '2023-08-03', temperature: '93°F', description: 'Sunny' },
-    { date: '2023-08-04', temperature: '100°F', description: 'Clear' },
-  ],
-};
+//WeatherAPP API key
+const apiKey = '733a414739651ce242b68d4fd47d102a';
 
 // Function to display the current weather
-function displayCurrentWeather() {
-  locationElement.textContent = sampleWeatherData.location;
-  temperatureElement.textContent = sampleWeatherData.temperature;
-  descriptionElement.textContent = sampleWeatherData.description;
+function displayCurrentWeather(data) {
+    locationElement.textContent = data.location.name + ', ' + data.location.country;
+    // Convert temperature from Celsius to Fahrenheit
+    const temperatureInCelsius = data.current.temperature;
+    const temperatureInFahrenheit = (temperatureInCelsius * 9) / 5 + 32;
+    temperatureElement.textContent = temperatureInFahrenheit.toFixed(1) + '°F';
+    descriptionElement.textContent = data.current.weather_descriptions[0];
 }
+
+// Function to fetch weather data from WeatherStack API
+async function fetchCurrentWeatherData(location) {
+    const apiUrl = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`;
+  
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+  
+      if (data.success === false) {
+        throw new Error(data.error.info);
+      }
+  
+      displayCurrentWeather(data);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+      // Handle the error and show a user-friendly message to the user
+      locationElement.textContent = 'Error fetching weather data';
+      temperatureElement.textContent = '';
+      descriptionElement.textContent = '';
+    }
+  }
 
 // Function to display the 5-day forecast
 function displayForecast() {
@@ -46,11 +60,10 @@ function displayForecast() {
 // Function to handle the form submission
 function handleFormSubmit(event) {
   event.preventDefault();
-  const searchTerm = searchInput.value;
-  // Implement code to fetch weather data for the entered location from the API here
-  // and update the sampleWeatherData object with the actual data received from the API.
-  // Then call the displayCurrentWeather() and displayForecast() functions to show the updated data.
-  // For now, we'll use the sampleWeatherData for testing purposes.
+  const searchTerm = searchInput.value.trim();
+  if (searchTerm) {
+    fetchCurrentWeatherData(searchTerm);
+  }
   displayCurrentWeather();
   displayForecast();
 }
