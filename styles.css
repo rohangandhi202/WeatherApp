@@ -1,0 +1,107 @@
+/* Reset default margins and paddings for consistent styling */
+body, h1, h2, h3, p, ul, li, form {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Set the background color to a light gray */
+  }
+  
+  header {
+    background-color: #007bff; /* Set header background color to a blue shade */
+    color: #fff; /* Set header text color to white */
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  /* Styling for the Current Weather section */
+  .current-weather {
+    margin-bottom: 2rem;
+  }
+  
+  .weather-info {
+    text-align: center;
+  }
+  
+  .location {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .temperature {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+  
+  /* Styling for the Forecast section */
+  .forecast {
+    margin-bottom: 2rem;
+  }
+  
+  .forecast-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+  }
+  
+  .forecast-item {
+    text-align: center;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Styling for the Search section */
+  .search {
+    text-align: center;
+  }
+  
+  #search-form {
+    margin-top: 1rem;
+  }
+  
+  #search-input {
+    padding: 0.5rem;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  #search-input:focus {
+    outline: none;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+  }
+  
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
