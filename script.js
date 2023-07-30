@@ -7,31 +7,48 @@ const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
 //WeatherAPP API key
-const apiKey = '733a414739651ce242b68d4fd47d102a';
+const apiKey = '2c1d9347c81f45e889e215656233007';
 
 // Function to display the current weather
 function displayCurrentWeather(data) {
     locationElement.textContent = data.location.name + ', ' + data.location.country;
-    // Convert temperature from Celsius to Fahrenheit
-    const temperatureInCelsius = data.current.temperature;
-    const temperatureInFahrenheit = (temperatureInCelsius * 9) / 5 + 32;
-    temperatureElement.textContent = temperatureInFahrenheit.toFixed(1) + '°F';
-    descriptionElement.textContent = data.current.weather_descriptions[0];
+    temperatureElement.textContent = data.current.temp_f + '°F';
+    descriptionElement.textContent = data.current.condition.text;
 }
+
+// Function to display the 5-day forecast
+// function displayForecast(forecastData) {
+//     forecastListElement.innerHTML = ''; // Clear any existing forecast data
+  
+//     forecastData.forEach((day) => {
+//         const forecastItem = document.createElement('div');
+//         forecastItem.classList.add('forecast-item');
+//         forecastItem.innerHTML = `
+//             <p>Date: ${day.date}</p>
+//             <p>Temperature: ${day.day.avgtemp_f}°C</p>
+//             <p>Description: ${day.day.condition.text}</p>
+//         `;
+//     forecastListElement.appendChild(forecastItem);
+//   });
+//   }
 
 // Function to fetch weather data from WeatherStack API
 async function fetchCurrentWeatherData(location) {
-    const apiUrl = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`;
+    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=2c1d9347c81f45e889e215656233007&q=${location}&days=10&aqi=no&alerts=no`;
   
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
   
-      if (data.success === false) {
-        throw new Error(data.error.info);
+      if (data.error) {
+        throw new Error(data.error.message);
       }
-  
+      //Get the current weather
       displayCurrentWeather(data);
+
+      //Get the 10 day forecast
+    //   displayForecast(data);
+
     } catch (error) {
       console.error('Error fetching weather data:', error);
       // Handle the error and show a user-friendly message to the user
@@ -40,22 +57,6 @@ async function fetchCurrentWeatherData(location) {
       descriptionElement.textContent = '';
     }
   }
-
-// Function to display the 5-day forecast
-function displayForecast() {
-  forecastListElement.innerHTML = ''; // Clear any existing forecast data
-
-  sampleWeatherData.forecast.forEach((day) => {
-    const forecastItem = document.createElement('div');
-    forecastItem.classList.add('forecast-item');
-    forecastItem.innerHTML = `
-      <p>${day.date}</p>
-      <p>${day.temperature}</p>
-      <p>${day.description}</p>
-    `;
-    forecastListElement.appendChild(forecastItem);
-  });
-}
 
 // Function to handle the form submission
 function handleFormSubmit(event) {
@@ -70,7 +71,3 @@ function handleFormSubmit(event) {
 
 // Event listener for the form submission
 searchForm.addEventListener('submit', handleFormSubmit);
-
-// Initial function calls to display sample data
-displayCurrentWeather();
-displayForecast();
