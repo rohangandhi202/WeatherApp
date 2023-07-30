@@ -1,2 +1,5 @@
 # WeatherApp
- Creating a Web App that displays accurate information about the current conditions and forecasts for a given location
+ - Can get the current weather 
+ - Get historical weather data
+ - Get the forecast up to 14 days in the future
+ - Lookup the weather in a location
