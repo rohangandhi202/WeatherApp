@@ -15,7 +15,7 @@ const apiKey = '2c1d9347c81f45e889e215656233007';
 
 // Function to display the current weather
 function displayCurrentWeather(data) {
-    locationElement.textContent = data.location.name + ', ' + data.location.country;
+    locationElement.textContent = data.location.name + ', ' + data.location.region + ', ' + data.location.country;
     temperatureElement.innerHTML = `<p><strong>Current Temperature:</strong> ${data.current.temp_f}°F</p>`
     descriptionElement.innerHTML = `<p><strong>Description:</strong> ${data.current.condition.text}</p>`
     feelsLikeElement.innerHTML = `<p><strong>Feels Like:</strong> ${data.current.feelslike_f}°F</p>`
