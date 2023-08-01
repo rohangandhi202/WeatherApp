@@ -17,24 +17,24 @@ function displayCurrentWeather(data) {
 }
 
 // Function to display the 5-day forecast
-// function displayForecast(forecastData) {
-//     forecastListElement.innerHTML = ''; // Clear any existing forecast data
+function displayForecast(forecastData) {
+    forecastListElement.innerHTML = ''; // Clear any existing forecast data
   
-//     forecastData.forEach((day) => {
-//         const forecastItem = document.createElement('div');
-//         forecastItem.classList.add('forecast-item');
-//         forecastItem.innerHTML = `
-//             <p>Date: ${day.date}</p>
-//             <p>Temperature: ${day.day.avgtemp_f}°C</p>
-//             <p>Description: ${day.day.condition.text}</p>
-//         `;
-//     forecastListElement.appendChild(forecastItem);
-//   });
-//   }
+    forecastData.forecast.forecastday.slice(1, 11).forEach((day) => {
+      const forecastItem = document.createElement('div');
+      forecastItem.classList.add('forecast-item');
+      forecastItem.innerHTML = `
+        <p><strong>Date:</strong> ${day.date}</p>
+        <p><strong>Temperature:</strong> ${day.day.avgtemp_f}°F</p>
+        <p><strong>Description:</strong> ${day.day.condition.text}</p>
+      `;
+      forecastListElement.appendChild(forecastItem);
+    });
+  }
 
 // Function to fetch weather data from WeatherStack API
 async function fetchCurrentWeatherData(location) {
-    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=2c1d9347c81f45e889e215656233007&q=${location}&days=10&aqi=no&alerts=no`;
+    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=2c1d9347c81f45e889e215656233007&q=${location}&days=11&aqi=no&alerts=no`;
   
     try {
       const response = await fetch(apiUrl);
@@ -47,7 +47,7 @@ async function fetchCurrentWeatherData(location) {
       displayCurrentWeather(data);
 
       //Get the 10 day forecast
-    //   displayForecast(data);
+      displayForecast(data);
 
     } catch (error) {
       console.error('Error fetching weather data:', error);
