@@ -2,6 +2,10 @@
 const locationElement = document.querySelector('.location');
 const temperatureElement = document.querySelector('.temperature');
 const descriptionElement = document.querySelector('.description');
+const feelsLikeElement = document.querySelector('.feelstemperature');
+const windSpeed = document.querySelector('.wind');
+const humidityIndex = document.querySelector('.humidity');
+const uvIndex = document.querySelector('.uv');
 const forecastListElement = document.querySelector('.forecast-list');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
@@ -12,8 +16,12 @@ const apiKey = '2c1d9347c81f45e889e215656233007';
 // Function to display the current weather
 function displayCurrentWeather(data) {
     locationElement.textContent = data.location.name + ', ' + data.location.country;
-    temperatureElement.textContent = data.current.temp_f + '°F';
-    descriptionElement.textContent = data.current.condition.text;
+    temperatureElement.innerHTML = `<p><strong>Current Temperature:</strong> ${data.current.temp_f}°F</p>`
+    descriptionElement.innerHTML = `<p><strong>Description:</strong> ${data.current.condition.text}</p>`
+    feelsLikeElement.innerHTML = `<p><strong>Feels Like:</strong> ${data.current.feelslike_f}°F</p>`
+    windSpeed.innerHTML = `<p><strong>Wind:</strong> ${data.current.wind_mph} mph</p>`
+    humidityIndex.innerHTML = `<p><strong>Humidity:</strong> ${data.current.humidity}</p>`
+    uvIndex.innerHTML = `<p><strong>UV:</strong> ${data.current.uv}</p>`
 }
 
 // Function to display the 5-day forecast
@@ -25,7 +33,7 @@ function displayForecast(forecastData) {
       forecastItem.classList.add('forecast-item');
       forecastItem.innerHTML = `
         <p><strong>Date:</strong> ${day.date}</p>
-        <p><strong>Temperature:</strong> ${day.day.avgtemp_f}°F</p>
+        <p><strong>Average Temperature:</strong> ${day.day.avgtemp_f}°F</p>
         <p><strong>Description:</strong> ${day.day.condition.text}</p>
       `;
       forecastListElement.appendChild(forecastItem);
